@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{50} -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="adminLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/admin-server.log</file>
+		<encoder>
+			<pattern>%d [%thread] %-5level -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/admin-server.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="errorLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/admin-server.log.error</file>
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{36} -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/admin-server.log.error.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="sqlLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/admin-server.log.sql</file>
+		<encoder>
+			<pattern>%d [%thread] %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/admin-server.log.sql.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+		</rollingPolicy>
+	</appender>
+
+	<logger name="adminLogger" level="DEBUG" additivity="true">
+		<appender-ref ref="adminLog" />
+	</logger>
+
+	<logger name="com.xiaoshu.backendframework" level="DEBUG" additivity="true">
+		<appender-ref ref="sqlLog" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="errorLog" />
+	</root>
+
+</configuration>

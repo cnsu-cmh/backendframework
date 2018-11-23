@@ -1,0 +1,86 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/backend?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: xqx1234
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      stat-view-servlet:
+        allow: 127.0.0.1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    servlet:
+      load-on-startup: 1
+  static-path-pattern: /static/**
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+
+
+
+
+
+mybatis:
+  type-aliases-package: com.xiaoshu.backendframework.model
+  mapper-locations: classpath:/mappers/*
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: true
+
+files:
+  path: ${file-path:d:/files}
+
+logging:
+  config: classpath:logback.xml
+log:
+  level:
+    root: info
+    my: debug
+  file: logs/admin-server.log
+  maxsize: 30MB
+
+token:
+  expire:
+    seconds: 86400
+
+server:
+  port: 8888
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    session:
+      timeout: 30m #30分钟，测试的话时间不能太短，否则不准。m是分钟单位，s是秒的单位，h是小时的单位，不写单位的话默认是毫秒
