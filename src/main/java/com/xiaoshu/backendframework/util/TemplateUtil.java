@@ -51,7 +51,7 @@ public class TemplateUtil {
 
 		String packageName[] = getPackageName(templateType, input);
 
-		FileUtil.saveTextFile(text, input.getPath() + File.separator
+		FileUtil.saveTextFile(text, input.getPath() + File.separator +  "java" + File.separator
 				+ getPackagePath(packageName[0]) + packageName[1] + ".java");
 
 		log.debug("生成"+templateType.getTname() + "模板", input.getBeanName());
@@ -80,16 +80,22 @@ public class TemplateUtil {
 	}
 
 	private static String replacedTemplete(String text, GenerateInput input) {
-		String beanName = input.getBeanName();
-		String beanPackageName = input.getBeanPackageName();
-		String mapperPackageName = input.getMapperPackageName();
-		String mapperName = input.getMapperName();
-		text = text.replace("{mapperPackageName}", mapperPackageName);
-		text = text.replace("{beanPackageName}", beanPackageName);
-		text = text.replace("{mapperName}", mapperName);
-		text = text.replace("{daoParamName}", lowerFirstChar(mapperName));
-		text = text.replace("{beanName}", beanName);
-		text = text.replace("{beanParamName}", lowerFirstChar(beanName));
+		text = text.replace("{beanName}", input.getBeanName());
+		text = text.replace("{beanParamName}", lowerFirstChar(input.getBeanName()));
+		text = text.replace("{beanPackageName}", input.getBeanPackageName());
+
+		text = text.replace("{mapperName}", input.getMapperName());
+		text = text.replace("{mapperParamName}", lowerFirstChar(input.getMapperName()));
+		text = text.replace("{mapperPackageName}", input.getMapperPackageName());
+
+		text = text.replace("{serviceName}", input.getServiceName());
+		text = text.replace("{serviceParamName}", lowerFirstChar(input.getServiceName()));
+		text = text.replace("{servicePackageName}", input.getServicePkgName());
+
+		text = text.replace("{serviceImplName}", input.getServiceImplName());
+		text = text.replace("{serviceImplParamName}", lowerFirstChar(input.getServiceImplName()));
+		text = text.replace("{serviceImplPkgName}", input.getServiceImplPkgName());
+
 		text = text.replace("{controllerPkgName}", input.getControllerPkgName());
 		text = text.replace("{controllerName}", input.getControllerName());
 		return text;
@@ -107,20 +113,23 @@ public class TemplateUtil {
 		text = text.replace("{columnsDatas}", getHtmlColumnsDatas(beanFieldNames));
 		text = text.replace("{ths}", getHtmlThs(beanFieldNames));
 
-		FileUtil.saveTextFile(text, path + File.separator + beanParamName + "List.html");
+		FileUtil.saveTextFile(text, path + File.separator + "resources" + File.separator
+				+ "templates" + File.separator + beanName + File.separator + beanParamName + "List.html");
 		log.debug("生成查询页面：{}模板", beanName);
 
 		text = getTemplete("htmlAdd.txt");
 		text = text.replace("{beanParamName}", beanParamName);
 		text = text.replace("{addDivs}", getAddDivs(beanFieldNames));
-		FileUtil.saveTextFile(text, path + File.separator + "add" + beanName + ".html");
+		FileUtil.saveTextFile(text, path + File.separator + "resources" + File.separator
+				+ "templates" + File.separator + beanName + File.separator + "add" + beanName + ".html");
 		log.debug("生成添加页面：{}模板", beanName);
 
 		text = getTemplete("htmlUpdate.txt");
 		text = text.replace("{beanParamName}", beanParamName);
 		text = text.replace("{addDivs}", getAddDivs(beanFieldNames));
 		text = text.replace("{initData}", getInitData(beanFieldNames));
-		FileUtil.saveTextFile(text, path + File.separator + "update" + beanName + ".html");
+		FileUtil.saveTextFile(text, path + File.separator + "resources" + File.separator
+				+ "templates" + File.separator + beanName + File.separator + "update" + beanName + ".html");
 		log.debug("生成修改页面：{}模板", beanName);
 	}
 
