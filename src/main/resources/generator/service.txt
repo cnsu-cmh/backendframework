@@ -1,0 +1,20 @@
+package {servicePkgName};
+
+import java.util.List;
+import java.util.Map;
+
+import {beanPackageName}.{beanName};
+
+public interface {serviceName} {
+
+    {beanName} save{beanName}({beanName} {beanParamName});
+
+    {beanName} getById(Long id);
+
+    {beanName} update{beanName}({beanName} {beanParamName});
+
+    Integer count(Map<String,Object> params);
+
+    List<{beanName}> selectList(Map<String,Object> params, Integer offset, Integer limit);
+
+}
