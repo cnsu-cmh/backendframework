@@ -64,7 +64,12 @@ public class MySelectConditionProvider extends MapperTemplate {
         sql.append("${orderBy}");
         sql.append("</when>");
         sql.append("<otherwise>");
-        sql.append(SqlHelper.orderByDefault(entityClass));
+        Set<EntityColumn> pkColumns = EntityHelper.getPKColumns(entityClass);
+        if (pkColumns.size() > 0) {
+            sql.append(" order by " +  pkColumns.stream().findFirst().get().getColumn() +  " desc ");
+        }else {
+            sql.append(SqlHelper.orderByDefault(entityClass));
+        }
         sql.append("</otherwise>");
         sql.append("</choose>");
 

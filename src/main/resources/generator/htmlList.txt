@@ -98,8 +98,7 @@ function init(){
                   	            }		
 							},
                 
-            ],
-           "order": [[ 0, "asc" ]]
+            ]
         } );
 }
 

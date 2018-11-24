@@ -1,5 +1,7 @@
 package com.xiaoshu.backendframework.model;
 
+import com.xiaoshu.backendframework.util.StringUtil;
+
 import javax.persistence.Transient;
 import java.io.Serializable;
 
@@ -19,7 +21,7 @@ public abstract class BaseTransientEntity implements Serializable  {
     }
 
     public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
+        this.orderBy = StringUtil.hump2Underline(orderBy);
     }
 
     public Integer getStart() {

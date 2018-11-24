@@ -27,7 +27,7 @@
 
         <javaModelGenerator targetPackage="${mapper.model.package}" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
-            <property name="rootClass" value="com.xiaoshu.backendframework.model.BaseEntity"/>
+            <property name="rootClass" value="com.xiaoshu.backendframework.model.BaseTransientEntity"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
