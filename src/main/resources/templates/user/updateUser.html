@@ -69,7 +69,7 @@
 			<div class="form-actions">
 				<div class="row" align="center">
 					<div class="col-md-12">
-						<button class="btn btn-primary" onclick="location.href='userList.html'">返回</button>
+						<button class="btn btn-primary" onclick="location.href='userList'">返回</button>
 						<button class="btn btn-primary" type="submit" onclick="update()">
 							<i class="fa fa-save"></i> 保存
 						</button>
@@ -81,15 +81,16 @@
 	</form>
 </div>	
 	<script type="text/javascript" th:src="@{/static/js/libs/jquery-2.1.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/js/jq.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/plugin/bootstrapvalidator/bootstrapValidator.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/common.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/my/roles/role.js}"></script>
 	<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jq.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/dict.js}"></script>
 	<script type="text/javascript">
-	layui.use(['layer','laydate'], function(){
-	    var layer = layui.layer;
+    var layer;
+    layui.use(['layer','laydate'], function(){
+	    layer = layui.layer;
 	    var laydate = layui.laydate;
 	    laydate.render({
            elem: '#birthday'
@@ -104,7 +105,6 @@
 	
 	function initData(){
 		var id = getUrlParam("id");
-		alert(id);
 		if(id != ""){
 			$.ajax({
 				type : 'get',
@@ -146,7 +146,7 @@
 				data : JSON.stringify(formdata),
 				success : function(data) {
 					layer.msg("修改成功", {shift: -1, time: 1000}, function(){
-                        location.href = "userList.html";
+                        location.href = "userList";
                     });
 				}
 			});

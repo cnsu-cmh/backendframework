@@ -13,11 +13,13 @@ import static org.apache.ibatis.io.Resources.getResourceAsStream;
 public class GeneratorUtil {
 
     public static void main(String[] args) {
-        saveModelAndMapper();
+        saveModelAndMapper("file_info");
     }
 
-    public static void saveModelAndMapper() {
-
+    public static void saveModelAndMapper(String tableName) {
+        ConfigUtil configUtil = ConfigUtil.getInstance("generator/bgm.properties");
+        configUtil.setProperty("table.tableName",tableName);
+        System.out.println("tableName:"+tableName);
         try{
             List<String> warnings = new ArrayList<String>();
 

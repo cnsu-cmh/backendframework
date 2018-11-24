@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.xiaoshu.backendframework.dto.BeanField;
 import com.xiaoshu.backendframework.dto.GenerateInput;
 import com.xiaoshu.backendframework.service.GenerateService;
+import com.xiaoshu.backendframework.util.GeneratorUtil;
 import com.xiaoshu.backendframework.util.SpringUtil;
 import com.xiaoshu.backendframework.util.StringUtil;
 import com.xiaoshu.backendframework.util.TemplateUtil;
@@ -100,6 +101,7 @@ public class GenerateServiceImpl implements GenerateService {
 
     @Override
     public void saveCode(GenerateInput input) {
+        GeneratorUtil.saveModelAndMapper(input.getTableName());
         TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.CONTROLLER);
         TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.SERVICE);
         TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.SERVICEIMPL);

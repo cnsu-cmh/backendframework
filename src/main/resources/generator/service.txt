@@ -13,8 +13,8 @@ public interface {serviceName} {
 
     {beanName} update{beanName}({beanName} {beanParamName});
 
-    Integer count(Map<String,Object> params);
+    Integer selectConditionCount(Map<String,Object> params);
 
-    List<{beanName}> selectList(Map<String,Object> params, Integer offset, Integer limit);
+    List<{beanName}> selectConditionList(Map<String,Object> params);
 
 }

@@ -6,6 +6,7 @@ import com.xiaoshu.backendframework.dto.BeanField;
 import com.xiaoshu.backendframework.dto.GenerateDetail;
 import com.xiaoshu.backendframework.dto.GenerateInput;
 import com.xiaoshu.backendframework.service.GenerateService;
+import com.xiaoshu.backendframework.util.ConfigUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -26,11 +27,12 @@ public class GenerateController {
     @GetMapping(params = { "tableName" })
     @RequiresPermissions("generate:edit")
     public GenerateDetail generateByTableName(String tableName) {
-        GenerateDetail detail = new GenerateDetail();
+        ConfigUtil configUtil = ConfigUtil.getInstance("generator/bgm.properties");
+        String explorerDir = (String)configUtil.getValue("explorerDir");
+        GenerateDetail detail = new GenerateDetail(explorerDir);
         detail.setBeanName(generateService.upperFirstChar(tableName));
         List<BeanField> fields = generateService.selectBeanField(tableName);
         detail.setFields(fields);
-
         return detail;
     }
 

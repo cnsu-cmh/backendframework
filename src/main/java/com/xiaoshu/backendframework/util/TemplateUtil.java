@@ -1,6 +1,9 @@
 package com.xiaoshu.backendframework.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -9,13 +12,14 @@ import com.xiaoshu.backendframework.dto.GenerateInput;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ResourceUtils;
 
 public class TemplateUtil {
 
 	private static final Logger log = LoggerFactory.getLogger("adminLogger");
 
 	public static String getTemplete(String fileName) {
-		return FileUtil.getText(TemplateUtil.class.getClassLoader().getResourceAsStream("generate/" + fileName));
+		return FileUtil.getText(TemplateUtil.class.getClassLoader().getResourceAsStream("generator/" + fileName));
 	}
 
 

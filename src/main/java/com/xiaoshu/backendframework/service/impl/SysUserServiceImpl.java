@@ -5,16 +5,20 @@ import com.xiaoshu.backendframework.dto.UserDto;
 import com.xiaoshu.backendframework.mapper.SysUserMapper;
 import com.xiaoshu.backendframework.model.SysUser;
 import com.xiaoshu.backendframework.service.SysUserService;
+import com.xiaoshu.backendframework.util.ObjectUtils;
 import com.xiaoshu.backendframework.util.UserUtil;
+import org.apache.commons.beanutils.BeanUtilsBean2;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -39,13 +43,15 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public Integer count(Map<String, Object> params) {
-        return userMapper.count(params);
+    public Integer selectConditionCount(Map<String, Object> params) {
+        SysUser user = (SysUser)ObjectUtils.mapToObject(params, SysUser.class);
+        return userMapper.selectConditionCount(user);
     }
 
     @Override
-    public List<SysUser> selectList(Map<String, Object> params, Integer offset, Integer limit) {
-        return userMapper.selectList(params, offset, limit);
+    public List<SysUser> selectConditionList(Map<String, Object> params) {
+        SysUser user = (SysUser)ObjectUtils.mapToObject(params, SysUser.class);
+        return userMapper.selectConditionList(user);
     }
 
     @Override
@@ -76,6 +82,11 @@ public class SysUserServiceImpl implements SysUserService {
         userMapper.changePassword(user.getId(), passwordEncoder(newPassword,user.getSalt()));
 
         log.debug("修改{}的密码", username);
+    }
+
+    @Override
+    public SysUser getById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 
     private void saveUserRoles(Long userId, List<Long> roleIds) {

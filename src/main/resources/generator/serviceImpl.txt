@@ -6,7 +6,7 @@ import java.util.Map;
 import {servicePkgName}.{serviceName};
 import {mapperPackageName}.{mapperName};
 import {beanPackageName}.{beanName};
-
+import com.xiaoshu.backendframework.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,13 +43,15 @@ public class {serviceImplName} implements {serviceName} {
     }
 
      @Override
-    public Integer count(Map<String, Object> params) {
-        return {mapperParamName}.count(params);
+    public Integer selectConditionCount(Map<String, Object> params) {
+        {beanName} {beanParamName} = ({beanName})ObjectUtils.mapToObject(params, {beanName}.class);
+        return {mapperParamName}.selectConditionCount({beanParamName});
     }
 
     @Override
-    public List<{beanName}> selectList(Map<String, Object> params, Integer offset, Integer limit) {
-        return {mapperParamName}.selectList(params, offset, limit);
+    public List<{beanName}> selectConditionList(Map<String, Object> params) {
+       {beanName} {beanParamName} = ({beanName})ObjectUtils.mapToObject(params, {beanName}.class);
+       return {mapperParamName}.selectConditionList({beanParamName});
     }
 
 }

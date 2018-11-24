@@ -7,6 +7,11 @@ public class GenerateDetail implements Serializable {
 
 	private static final long serialVersionUID = -164567294469931676L;
 
+	/**
+	 * 保存路径
+	 */
+	private String path;
+
 	private String beanName;
 
 	private List<BeanField> fields;
@@ -25,5 +30,17 @@ public class GenerateDetail implements Serializable {
 
 	public void setFields(List<BeanField> fields) {
 		this.fields = fields;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public GenerateDetail(String path) {
+		this.path = path;
 	}
 }

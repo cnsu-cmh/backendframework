@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaoshu.backendframework.mapper.SysUserMapper">
 
-    <sql id="where">
+   <!-- <sql id="where">
         <where>
             <if test="params.username != null and params.username != ''">
                 and t.username like concat('%', #{params.username}, '%')
             </if>
             <if test="params.nickname != null and params.nickname != ''">
-                and t.nickname like concat('%', #{params.nickname}, '%')
+                and t.nickname like ramsconcat('%', #{pa.nickname}, '%')
             </if>
             <if test="params.status != null and params.status != ''">
                 and t.status = #{params.status}
@@ -27,7 +27,7 @@
         <include refid="where" />
         ${params.orderBy}
         limit #{offset}, #{limit}
-    </select>
+    </select>-->
 
     <insert id="saveUserRoles">
         insert into sys_role_user(role_id, user_id) values

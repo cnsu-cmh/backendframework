@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+	<link rel="stylesheet" type="text/css" media="screen" th:href="@{/static/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" media="screen" th:href="@{/static/layui/css/layui.css}">
 </head>
 <body>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -72,7 +72,7 @@
 			<div class="form-actions">
 				<div class="row" align="center">
 					<div class="col-md-12">
-					    <button class="btn btn-primary" onclick="location.href='userList.html'">返回</button>
+					    <button class="btn btn-primary" onclick="location.href='userList'">返回</button>
 						<button class="btn btn-primary" type="submit" onclick="add()">
 							<i class="fa fa-save"></i> 保存
 						</button>
@@ -83,16 +83,17 @@
 		</fieldset>
 	</form>
 </div>
-	<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="../../js/jq.js"></script>
-	<script type="text/javascript" src="../../js/plugin/bootstrapvalidator/bootstrapValidator.min.js"></script>
-	<script type="text/javascript" src="../../js/common.js"></script>
-	<script type="text/javascript" src="../../js/my/roles/role.js"></script>
-	<script type="text/javascript" src="../../layui/layui.js"></script>
-	<script type="text/javascript" src="../../js/dict.js"></script>
+	<script type="text/javascript" th:src="@{/static/js/libs/jquery-2.1.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/plugin/bootstrapvalidator/bootstrapValidator.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/jq.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/common.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/my/roles/role.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/dict.js}"></script>
 	<script type="text/javascript">
+        var layer;
 		layui.use(['layer','laydate'], function(){
-		    var layer = layui.layer;
+		    layer = layui.layer;
 		    var laydate = layui.laydate;
 		    laydate.render({
 	           elem: '#birthday'
@@ -122,7 +123,7 @@
 				data : JSON.stringify(formdata),
 				success : function(data) {
 					layer.msg("添加成功", {shift: -1, time: 1000}, function(){
-                        location.href = "userList.html";
+                        location.href = "userList";
                     });
 				}
 			});

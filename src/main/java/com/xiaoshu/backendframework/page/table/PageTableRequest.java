@@ -12,6 +12,8 @@ public class PageTableRequest implements Serializable {
 
 	private Integer offset;
 	private Integer limit;
+	private Integer pageNum;
+
 	private Map<String, Object> params;
 
 	public Integer getOffset() {
@@ -28,6 +30,14 @@ public class PageTableRequest implements Serializable {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
 	}
 
 	public Map<String, Object> getParams() {

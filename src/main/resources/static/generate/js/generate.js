@@ -23,6 +23,8 @@ $("#showInfo").click(function(){
             $("#detail").show();
             $("#save").show();
 
+            $("#path").val(data.path);
+
             var beanName = data.beanName;
             $("#beanName").val(beanName);
             $("#mapperName").val(beanName + "Mapper");
@@ -42,18 +44,23 @@ $("#showInfo").click(function(){
                 tr.append("<td>" + columnNameInput + columnName + "</td>");
                 tr.append("<td>" + f['columnType'] + "</td>");
                 tr.append("<td>" + f['columnComment'] + "</td>");
-                var name = f['name'];
-                var nameInput = "<input name='beanFieldName' class='form-control' value='" + name +"'>";
-                tr.append("<td>" + nameInput + "</td>");
 
-                var type = f['type'];
-                var typeInput = "<input name='beanFieldType' class='form-control' value='" + type +"'>"
-                tr.append("<td>" + typeInput + "</td>");
+                tr.append("<td>" + f['name'] + "</td>");
+                tr.append("<td>" + f['type'] + "</td>");
+                tr.append("<td>" + f['columnDefault'] + "</td>");
 
-                var val = f['columnDefault'];
-                var valInput = "<input name='beanFieldValue' class='form-control' value='" + val +"'>"
-                tr.append("<td>" + valInput + "</td>");
 
+                // var name = f['name'];
+                // var nameInput = "<input name='beanFieldName' class='form-control' value='" + name +"'>";
+                // tr.append("<td>" + nameInput + "</td>");
+                //
+                // var type = f['type'];
+                // var typeInput = "<input name='beanFieldType' class='form-control' value='" + type +"'>"
+                // tr.append("<td>" + typeInput + "</td>");
+                //
+                // var val = f['columnDefault'];
+                // var valInput = "<input name='beanFieldValue' class='form-control' value='" + val +"'>"
+                // tr.append("<td>" + valInput + "</td>");
                 beanFields.append(tr);
             }
         }

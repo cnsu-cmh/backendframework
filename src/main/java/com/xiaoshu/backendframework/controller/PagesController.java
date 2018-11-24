@@ -1,5 +1,6 @@
 package com.xiaoshu.backendframework.controller;
 
+import com.xiaoshu.backendframework.util.ConfigUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,8 +23,7 @@ public class PagesController {
     /***----------------------------generate-------------------------------*/
 
     @RequestMapping("/generate")
-    public String generate(ModelMap map, @Value("explorerDir")String explorerDir){
-        map.put("explorerDir",explorerDir);
+    public String generate(){
         return "generate/generate";
     }
 

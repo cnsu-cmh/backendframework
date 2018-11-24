@@ -43,6 +43,8 @@ public class PageTableArgumentResolver implements HandlerMethodArgumentResolver 
             tableRequest.setLimit(Integer.parseInt(request.getParameter("length")));
         }
 
+        tableRequest.setPageNum((tableRequest.getOffset() / tableRequest.getLimit()) + 1);
+
         Map<String, Object> map = Maps.newHashMap();
         tableRequest.setParams(map);
 

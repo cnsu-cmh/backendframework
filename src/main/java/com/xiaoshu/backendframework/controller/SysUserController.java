@@ -1,6 +1,7 @@
 package com.xiaoshu.backendframework.controller;
 
 
+import com.github.pagehelper.PageHelper;
 import com.xiaoshu.backendframework.annotation.LogAnnotation;
 import com.xiaoshu.backendframework.dto.UserDto;
 import com.xiaoshu.backendframework.model.SysUser;
@@ -40,8 +41,11 @@ public class SysUserController {
     @RequiresPermissions("sys:user:query")
     public PageTableResponse listUsers(PageTableRequest request) {
 
-        PageTableHandler.CountHandler countHandler = (r) -> userService.count(r.getParams());
-        PageTableHandler.ListHandler listHandler = (r) -> userService.selectList(r.getParams(), r.getOffset(), r.getLimit());
+        PageTableHandler.CountHandler countHandler = (r) -> userService.selectConditionCount(r.getParams());
+        PageTableHandler.ListHandler listHandler = (r) -> {
+            return userService.selectConditionList(r.getParams());
+        };
+
 
         return new PageTableHandler(countHandler,listHandler).handle(request);
     }
@@ -73,5 +77,11 @@ public class SysUserController {
     @RequiresPermissions("sys:user:password")
     public void changePassword(@PathVariable String username, String oldPassword, String newPassword) {
         userService.changePassword(username, oldPassword, newPassword);
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据id获取")
+    public SysUser get(@PathVariable Long id) {
+        return userService.getById(id);
     }
 }

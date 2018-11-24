@@ -46,10 +46,10 @@ public class {controllerName} {
     @ApiOperation(value = "列表")
     public PageTableResponse list(PageTableRequest request) {
 
-        PageTableHandler.CountHandler countHandler = (r) -> {serviceParamName}.count(r.getParams());
-        PageTableHandler.ListHandler listHandler = (r) -> {serviceParamName}.selectList(r.getParams(), r.getOffset(), r.getLimit());
+        PageTableHandler.CountHandler countHandler = (r) -> {serviceParamName}.selectConditionCount(r.getParams());
+        PageTableHandler.ListHandler listHandler = (r) -> {serviceParamName}.selectConditionList(r.getParams());
 
-       return new PageTableHandler(countHandler,listHandler).handle(request);
+        return new PageTableHandler(countHandler,listHandler).handle(request);
     }
 
     @DeleteMapping("/{id}")
