@@ -90,7 +90,7 @@ public class TemplateUtil {
 
 		text = text.replace("{serviceName}", input.getServiceName());
 		text = text.replace("{serviceParamName}", lowerFirstChar(input.getServiceName()));
-		text = text.replace("{servicePackageName}", input.getServicePkgName());
+		text = text.replace("{servicePkgName}", input.getServicePkgName());
 
 		text = text.replace("{serviceImplName}", input.getServiceImplName());
 		text = text.replace("{serviceImplParamName}", lowerFirstChar(input.getServiceImplName()));
@@ -114,14 +114,14 @@ public class TemplateUtil {
 		text = text.replace("{ths}", getHtmlThs(beanFieldNames));
 
 		FileUtil.saveTextFile(text, path + File.separator + "resources" + File.separator
-				+ "templates" + File.separator + beanName + File.separator + beanParamName + "List.html");
+				+ "templates" + File.separator + beanParamName + File.separator + beanParamName + "List.html");
 		log.debug("生成查询页面：{}模板", beanName);
 
 		text = getTemplete("htmlAdd.txt");
 		text = text.replace("{beanParamName}", beanParamName);
 		text = text.replace("{addDivs}", getAddDivs(beanFieldNames));
 		FileUtil.saveTextFile(text, path + File.separator + "resources" + File.separator
-				+ "templates" + File.separator + beanName + File.separator + "add" + beanName + ".html");
+				+ "templates" + File.separator + beanParamName + File.separator + "add" + beanName + ".html");
 		log.debug("生成添加页面：{}模板", beanName);
 
 		text = getTemplete("htmlUpdate.txt");
@@ -129,7 +129,7 @@ public class TemplateUtil {
 		text = text.replace("{addDivs}", getAddDivs(beanFieldNames));
 		text = text.replace("{initData}", getInitData(beanFieldNames));
 		FileUtil.saveTextFile(text, path + File.separator + "resources" + File.separator
-				+ "templates" + File.separator + beanName + File.separator + "update" + beanName + ".html");
+				+ "templates" + File.separator + beanParamName + File.separator + "update" + beanName + ".html");
 		log.debug("生成修改页面：{}模板", beanName);
 	}
 

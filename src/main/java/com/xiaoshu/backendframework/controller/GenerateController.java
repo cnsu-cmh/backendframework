@@ -9,6 +9,7 @@ import com.xiaoshu.backendframework.service.GenerateService;
 import com.xiaoshu.backendframework.util.ConfigUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,9 @@ public class GenerateController {
     @GetMapping(params = { "tableName" })
     @RequiresPermissions("generate:edit")
     public GenerateDetail generateByTableName(String tableName) {
+        if(StringUtils.isBlank(tableName)){
+            throw new IllegalArgumentException("tableName表名称不能为空");
+        }
         ConfigUtil configUtil = ConfigUtil.getInstance("generator/bgm.properties");
         String explorerDir = (String)configUtil.getValue("explorerDir");
         GenerateDetail detail = new GenerateDetail(explorerDir);

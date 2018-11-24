@@ -45,14 +45,15 @@ $("#showInfo").click(function(){
                 tr.append("<td>" + f['columnType'] + "</td>");
                 tr.append("<td>" + f['columnComment'] + "</td>");
 
-                tr.append("<td>" + f['name'] + "</td>");
+                //tr.append("<td>" + f['name'] + "</td>");
+
+                var name = f['name'];
+                var nameInput = "<input name='beanFieldName' class='form-control' readonly value='" + name +"'>";
+                tr.append("<td>" + nameInput + "</td>");
+
                 tr.append("<td>" + f['type'] + "</td>");
                 tr.append("<td>" + f['columnDefault'] + "</td>");
 
-
-                // var name = f['name'];
-                // var nameInput = "<input name='beanFieldName' class='form-control' value='" + name +"'>";
-                // tr.append("<td>" + nameInput + "</td>");
                 //
                 // var type = f['type'];
                 // var typeInput = "<input name='beanFieldType' class='form-control' value='" + type +"'>"
@@ -63,12 +64,18 @@ $("#showInfo").click(function(){
                 // tr.append("<td>" + valInput + "</td>");
                 beanFields.append(tr);
             }
+        },
+        error : function(xhr, textStatus, errorThrown) {
+            $("#tableName").val("");
+            var msg = xhr.responseText;
+            var response = JSON.parse(msg);
+            var message = response.message;
+            layer.msg(message);
         }
     });
 });
 
 $("#save").click(function(){
-
     var bootstrapValidator = $("#form").data('bootstrapValidator');
     bootstrapValidator.validate();
     if(!bootstrapValidator.isValid()){
@@ -89,6 +96,13 @@ $("#save").click(function(){
             $("#detail").hide();
             $("#save").hide();
             layer.msg("生成成功");
+        },
+        error : function(xhr, textStatus, errorThrown) {
+            $("#tableName").val("");
+            var msg = xhr.responseText;
+            var response = JSON.parse(msg);
+            var message = response.message;
+            layer.msg(message);
         }
     });
 });

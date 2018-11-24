@@ -33,6 +33,11 @@ public class GenerateServiceImpl implements GenerateService {
      */
     private static Map<String, String> map = Maps.newHashMap();
 
+    /**
+     * mysql查询表信息sql
+     */
+    private static String sql;
+
     static {
         map.put("int", Integer.class.getSimpleName());
         map.put("tinyint", Integer.class.getSimpleName());
@@ -46,6 +51,10 @@ public class GenerateServiceImpl implements GenerateService {
         map.put("text", String.class.getSimpleName());
         map.put("longtext", String.class.getSimpleName());
 
+        sql = "select column_name, data_type, column_comment, column_default " +
+                "FROM information_schema.columns " +
+                "WHERE table_name= ? " +
+                "and table_schema = (select database())";
     }
 
 
@@ -65,22 +74,8 @@ public class GenerateServiceImpl implements GenerateService {
 
     @Override
     public List<BeanField> selectBeanField(String tableName) {
-        DataSource dataSource = SpringUtil.getBean(DataSource.class);
-        try {
-            String driverName = dataSource.getConnection().getMetaData().getDriverName();
-            System.out.println(driverName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        String sql = "select column_name, data_type, column_comment, column_default " +
-                "FROM information_schema.columns " +
-                "WHERE table_name= ? " +
-                "and table_schema = (select database())";
-        List<BeanField> beanFields = jdbcTemplate.query(sql,new String[] { tableName }, beanFieldMapper);
-        if (CollectionUtils.isEmpty(beanFields)) {
-            throw new IllegalArgumentException("表" + tableName + "不存在");
-        }
+        List<BeanField> beanFields = checkTableName(tableName);
 
         beanFields.parallelStream().forEach(b -> {
             b.setName(StringUtil.str2hump(b.getColumnName()));
@@ -99,8 +94,17 @@ public class GenerateServiceImpl implements GenerateService {
         return beanFields;
     }
 
+    private List<BeanField> checkTableName(String tableName) {
+        List<BeanField> beanFields = jdbcTemplate.query(sql,new String[] { tableName }, beanFieldMapper);
+        if (CollectionUtils.isEmpty(beanFields)) {
+            throw new IllegalArgumentException("表" + tableName + "不存在");
+        }
+        return beanFields;
+    }
+
     @Override
     public void saveCode(GenerateInput input) {
+        checkTableName(input.getTableName());
         GeneratorUtil.saveModelAndMapper(input.getTableName());
         TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.CONTROLLER);
         TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.SERVICE);
@@ -116,4 +120,14 @@ public class GenerateServiceImpl implements GenerateService {
 
         return name;
     }
+
+//    private DataSourceType getDataSourceType(){
+//        DataSource dataSource = SpringUtil.getBean(DataSource.class);
+//        try {
+//            String driverName = dataSource.getConnection().getMetaData().getDriverName();
+//            System.out.println(driverName);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

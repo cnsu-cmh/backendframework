@@ -17,4 +17,6 @@ public interface {serviceName} {
 
     List<{beanName}> selectConditionList(Map<String,Object> params);
 
+    void delete(Long id);
+
 }
