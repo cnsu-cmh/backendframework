@@ -1,0 +1,55 @@
+package {serviceImplPkgName};
+
+import java.util.List;
+import java.util.Map;
+
+import {servicePkgName}.{serviceName};
+import {mapperPackageName}.{mapperName};
+import {beanPackageName}.{beanName};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+public class {serviceImplName} implements {serviceName} {
+
+    private static final Logger log = LoggerFactory.getLogger("adminLogger");
+
+    @Autowired
+    private {mapperName} {mapperParamName};
+
+    @Override
+    @Transactional
+    public {beanName} save{beanName}({beanName} {beanParamName}) {
+
+        {mapperParamName}.insertSelective({beanParamName});
+
+        log.debug("新增{beanName}", {beanParamName}.getId());
+        return {beanParamName};
+    }
+
+    public {beanName} getById(Long id) {
+        return {mapperParamName}.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional
+    public {beanName} update{beanName}({beanName} {beanParamName}) {
+
+        {mapperParamName}.updateByPrimaryKeySelective({beanParamName});
+
+        log.debug("修改{beanName}", {beanParamName}.getId());
+        return {beanParamName};
+    }
+
+     @Override
+    public Integer count(Map<String, Object> params) {
+        return {mapperParamName}.count(params);
+    }
+
+    @Override
+    public List<{beanName}> selectList(Map<String, Object> params, Integer offset, Integer limit) {
+        return {mapperParamName}.selectList(params, offset, limit);
+    }
+
+}

@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <!--<properties resource="classpath:application.yml"/>-->
+    <properties resource="generator/bgm.properties"/>
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
-        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.xiaoshu.backendframework.util.MyMapper"/>
+        <plugin type="${mapper.mapperType}">
+            <property name="mappers" value="${mapper.mappers}"/>
         </plugin>
 
        <!-- <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
@@ -19,20 +19,20 @@
                         userId="${spring.datasource.username}"
                         password="${spring.datasource.password}">
         </jdbcConnection>-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/backend"
-                        userId="root"
-                        password="xqx1234">
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.xiaoshu.backendframework.model" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="${mapper.javamodel.package}" targetProject="src/main/java"/>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+        <sqlMapGenerator targetPackage="${mapper.xml.package}" targetProject="src/main/resources"/>
 
-        <javaClientGenerator targetPackage="com.xiaoshu.backendframework.mapper" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="${mapper.mapper.package}" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-        <table tableName="file_info">
+        <table tableName="${table.tableName}">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <!--oracle 配置-->

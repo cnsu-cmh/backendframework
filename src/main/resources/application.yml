@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/backend?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
     username: root
-    password: xqx1234
+    password: cmh199410
     druid:
       initialSize: 5
       minIdle: 5
@@ -52,7 +52,7 @@ spring:
 
 mybatis:
   type-aliases-package: com.xiaoshu.backendframework.model
-  mapper-locations: classpath:/mappers/*
+  mapper-locations: classpath:mappers/*
   configuration:
     mapUnderscoreToCamelCase: true
 
@@ -84,3 +84,5 @@ server:
   servlet:
     session:
       timeout: 30m #30分钟，测试的话时间不能太短，否则不准。m是分钟单位，s是秒的单位，h是小时的单位，不写单位的话默认是毫秒
+
+explorerDir: E:/IntelliJIDEAProject/backendframework/src/main/java

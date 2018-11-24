@@ -25,7 +25,9 @@ $("#showInfo").click(function(){
 
             var beanName = data.beanName;
             $("#beanName").val(beanName);
-            $("#daoName").val(beanName + "Mapper");
+            $("#mapperName").val(beanName + "Mapper");
+            $("#serviceName").val(beanName + "Service");
+            $("#serviceImplName").val(beanName + "ServiceImpl");
             $("#controllerName").val(beanName + "Controller");
             var fields = data.fields;
             var length = fields.length;
@@ -59,6 +61,7 @@ $("#showInfo").click(function(){
 });
 
 $("#save").click(function(){
+
     var bootstrapValidator = $("#form").data('bootstrapValidator');
     bootstrapValidator.validate();
     if(!bootstrapValidator.isValid()){
@@ -69,6 +72,7 @@ $("#save").click(function(){
     }
 
     var formdata = $("#form").serializeObject();
+
     $.ajax({
         type : 'post',
         url : '/generate',

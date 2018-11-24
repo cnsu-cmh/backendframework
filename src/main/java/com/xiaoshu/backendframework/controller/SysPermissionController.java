@@ -7,14 +7,18 @@ import com.xiaoshu.backendframework.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Api(tags = "权限")
@@ -57,6 +61,23 @@ public class SysPermissionController {
                 setChild(c, permissions);
             });
         }
+    }
+
+    /**
+     * 校验权限
+     *
+     * @return
+     */
+    @GetMapping("/owns")
+    @ApiOperation(value = "校验当前用户的权限")
+    public Set<String> ownsPermission() {
+        List<SysPermission> permissions = UserUtil.getCurrentPermissions();
+        if (CollectionUtils.isEmpty(permissions)) {
+            return Collections.emptySet();
+        }
+
+        return permissions.parallelStream().filter(p -> !StringUtils.isEmpty(p.getPermission()))
+                .map(SysPermission::getPermission).collect(Collectors.toSet());
     }
 
 }

@@ -2,9 +2,11 @@ package com.xiaoshu.backendframework.service.impl;
 
 import com.google.common.collect.Maps;
 import com.xiaoshu.backendframework.dto.BeanField;
+import com.xiaoshu.backendframework.dto.GenerateInput;
 import com.xiaoshu.backendframework.service.GenerateService;
 import com.xiaoshu.backendframework.util.SpringUtil;
 import com.xiaoshu.backendframework.util.StringUtil;
+import com.xiaoshu.backendframework.util.TemplateUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -94,6 +96,14 @@ public class GenerateServiceImpl implements GenerateService {
         });
 
         return beanFields;
+    }
+
+    @Override
+    public void saveCode(GenerateInput input) {
+        TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.CONTROLLER);
+        TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.SERVICE);
+        TemplateUtil.saveTemplete(input, TemplateUtil.TemplateType.SERVICEIMPL);
+        TemplateUtil.saveHtmlList(input);
     }
 
     @Override

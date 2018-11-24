@@ -20,8 +20,8 @@ function init(){
             },
             "ajax": {
                 "url" : "/users",
-                "type":"get",
-                "data":function(d){
+                "type": "get",
+                "data": function(d){
                     d.username = $('#username').val();
                     d.nickname = $('#nickname').val();
                     d.status = $('#status').val();
@@ -50,7 +50,7 @@ function init(){
                     "orderable":false,
                     "render": function (data, type, row) {
                         var id = row['id'];
-                        var href = "/updateUser?id=" + id;
+                        var href = "/pages/user/updateUser?id=" + id;
                         var edit = buttonEdit(href, "sys:user:add", pers);
                         return edit;
                     }

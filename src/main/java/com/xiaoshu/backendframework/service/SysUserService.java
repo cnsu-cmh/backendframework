@@ -16,4 +16,10 @@ public interface SysUserService {
     Integer count(Map<String,Object> params);
 
     List<SysUser> selectList(Map<String,Object> params, Integer offset, Integer limit);
+
+    SysUser updateUser(UserDto userDto);
+
+    SysUser saveUser(UserDto userDto);
+
+    void changePassword(String username, String oldPassword, String newPassword);
 }

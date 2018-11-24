@@ -1,0 +1,60 @@
+package {controllerPkgName};
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.xiaoshu.backendframework.page.table.PageTableHandler;
+import com.xiaoshu.backendframework.page.table.PageTableRequest;
+import com.xiaoshu.backendframework.page.table.PageTableResponse;
+import {servicePackageName}.{serviceName};
+import {beanPackageName}.{beanName};
+
+import io.swagger.annotations.ApiOperation;
+
+@RestController
+@RequestMapping("/{beanParamName}s")
+public class {controllerName} {
+
+    @Autowired
+    private {serviceName} {serviceParamName};
+
+    @PostMapping
+    @ApiOperation(value = "保存")
+    public {beanName} save(@RequestBody {beanName} {beanParamName}) {
+        {serviceParamName}.save{beanName}({beanParamName});
+
+        return {beanParamName};
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据id获取")
+    public {beanName} get(@PathVariable Long id) {
+        return {serviceParamName}.getById(id);
+    }
+
+    @PutMapping
+    @ApiOperation(value = "修改")
+    public {beanName} update(@RequestBody {beanName} {beanParamName}) {
+        {serviceParamName}.update{beanName}({beanParamName});
+
+        return {beanParamName};
+    }
+
+    @GetMapping
+    @ApiOperation(value = "列表")
+    public PageTableResponse list(PageTableRequest request) {
+
+        PageTableHandler.CountHandler countHandler = (r) -> {serviceParamName}.count(r.getParams());
+        PageTableHandler.ListHandler listHandler = (r) -> {serviceParamName}.selectList(r.getParams(), r.getOffset(), r.getLimit());
+
+       return new PageTableHandler(countHandler,listHandler).handle(request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "删除")
+    public void delete(@PathVariable Long id) {
+        {serviceParamName}.delete(id);
+    }
+}
