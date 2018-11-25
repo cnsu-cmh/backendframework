@@ -116,6 +116,19 @@
 			</fieldset>
 		</blockquote>
 	</div>
+	<input th:value="${isDefaultPassword}" th:type="hidden" th:id="isDefaultPassword"/>
+	<script type="text/javascript" th:src="@{/static/js/libs/jquery-2.1.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script>
+    var layer;
+    layui.use(['layer'], function(){
+        layer = layui.layer;
+        var isDefaultPassword = $("#isDefaultPassword").val();
+        if(isDefaultPassword && isDefaultPassword == true ) {
+			layer.msg("你的密码为默认密码，建议修改密码后重新登陆！",{shift: -1, time: 3000});
+		}
+    });
+</script>
 </body>
 
 </html>

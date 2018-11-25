@@ -31,7 +31,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         log.debug("权限配置");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         SysUser user = UserUtil.getCurrentUser();
-        List<SysRole> roles = SpringUtil.getBean(SysRoleMapper.class).listByUserId(user.getId());
+        List<SysRole> roles = SpringUtil.getBean(SysRoleMapper.class).selectByUserId(user.getId());
         Set<String> roleNames = roles.stream().map(SysRole::getName).collect(Collectors.toSet());
         authorizationInfo.setRoles(roleNames);
         List<SysPermission> permissionList = SpringUtil.getBean(SysPermissionMapper.class).selectByUserId(user.getId());
@@ -54,7 +54,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             throw new UnknownAccountException("用户名不存在");
         }
 
-        if (!user.getPassword().equals(userService.passwordEncoder(new String(usernamePasswordToken.getPassword()), user.getSalt()))) {
+        if (!user.getPassword().equals(UserUtil.passwordEncoder(new String(usernamePasswordToken.getPassword()), user.getSalt()))) {
             throw new IncorrectCredentialsException("密码错误");
         }
 

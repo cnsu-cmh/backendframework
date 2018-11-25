@@ -9,8 +9,6 @@ import java.util.Map;
 public interface SysUserService {
 
 
-    String passwordEncoder(String credentials, String salt);
-
     SysUser getUser(String username);
 
     Integer selectConditionCount(Map<String,Object> params);

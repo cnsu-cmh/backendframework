@@ -32,12 +32,6 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper userMapper;
 
     @Override
-    public String passwordEncoder(String credentials, String salt) {
-        Object object = new SimpleHash(UserConstants.HASH_ALGORITHM, credentials, salt, UserConstants.HASH_ITERATIONS);
-        return object.toString();
-    }
-
-    @Override
     public SysUser getUser(String username) {
         return userMapper.selectOne(new SysUser(username));
     }
@@ -59,7 +53,7 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser saveUser(UserDto userDto) {
         SysUser user = userDto;
         user.setSalt(DigestUtils.md5Hex(UUID.randomUUID().toString() + System.currentTimeMillis() + UUID.randomUUID().toString()));
-        user.setPassword(passwordEncoder(user.getPassword(), user.getSalt()));
+        user.setPassword(UserUtil.passwordEncoder(user.getPassword(), user.getSalt()));
         user.setStatus(SysUser.Status.VALID);
         userMapper.insertSelective(user);
         saveUserRoles(user.getId(), userDto.getRoleIds());
@@ -75,11 +69,11 @@ public class SysUserServiceImpl implements SysUserService {
             throw new IllegalArgumentException("用户不存在");
         }
 
-        if (!user.getPassword().equals(passwordEncoder(oldPassword, user.getSalt()))) {
+        if (!user.getPassword().equals(UserUtil.passwordEncoder(oldPassword, user.getSalt()))) {
             throw new IllegalArgumentException("密码错误");
         }
 
-        userMapper.changePassword(user.getId(), passwordEncoder(newPassword,user.getSalt()));
+        userMapper.changePassword(user.getId(), UserUtil.passwordEncoder(newPassword,user.getSalt()));
 
         log.debug("修改{}的密码", username);
     }

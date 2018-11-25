@@ -4,6 +4,7 @@ import com.xiaoshu.backendframework.constants.UserConstants;
 import com.xiaoshu.backendframework.model.SysPermission;
 import com.xiaoshu.backendframework.model.SysUser;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
@@ -36,5 +37,10 @@ public class UserUtil {
         Session session = currentUser.getSession();
 
         return session;
+    }
+
+    public static String passwordEncoder(String credentials, String salt) {
+        Object object = new SimpleHash(UserConstants.HASH_ALGORITHM, credentials, salt, UserConstants.HASH_ITERATIONS);
+        return object.toString();
     }
 }

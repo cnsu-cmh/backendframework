@@ -8,6 +8,14 @@ public class SysRole extends BaseEntity<Long> {
 
     private String description;
 
+
+    public SysRole() {
+    }
+
+    public SysRole(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

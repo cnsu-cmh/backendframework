@@ -9,7 +9,7 @@ function initRoles() {
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
 				var id = d['id'];
-				var name = d['name'];
+				var name = d['description'];
 
 				var t = "<label><input type='checkbox' value='" + id + "'>"
 						+ name + "</label> &nbsp&nbsp";

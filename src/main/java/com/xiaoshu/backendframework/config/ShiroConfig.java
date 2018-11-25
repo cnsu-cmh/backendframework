@@ -31,6 +31,7 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/files/*", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
 
         filterChainDefinitionMap.put("/toLogin", "anon");
         filterChainDefinitionMap.put("/getCaptcha", "anon");

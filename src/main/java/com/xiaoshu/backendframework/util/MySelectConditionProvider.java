@@ -74,7 +74,7 @@ public class MySelectConditionProvider extends MapperTemplate {
         sql.append("</choose>");
 
         //拼接limit语句
-        sql.append("<if test=\"start != null and length != '' \">");
+        sql.append("<if test=\"start != null and length != null \">");
         sql.append(" limit ${start},${length}");
         sql.append("</if>");
 

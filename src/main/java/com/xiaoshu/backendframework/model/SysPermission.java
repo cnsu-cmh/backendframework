@@ -1,11 +1,19 @@
 package com.xiaoshu.backendframework.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.List;
 
-public class SysPermission extends BaseEntity<Long> {
+public class SysPermission implements Serializable {
 
     private static final long serialVersionUID = -6758816928707870459L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Long parentId;
     private String name;
     private String css;
@@ -15,6 +23,14 @@ public class SysPermission extends BaseEntity<Long> {
     private Integer sort;
 
     private List<SysPermission> child;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getParentId() {
         return parentId;

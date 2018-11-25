@@ -46,7 +46,6 @@ public class SysUserController {
             return userService.selectConditionList(r.getParams());
         };
 
-
         return new PageTableHandler(countHandler,listHandler).handle(request);
     }
 
@@ -75,7 +74,7 @@ public class SysUserController {
     @PutMapping("/{username}")
     @ApiOperation(value = "修改密码")
     @RequiresPermissions("sys:user:password")
-    public void changePassword(@PathVariable String username, String oldPassword, String newPassword) {
+    public void changePassword(String oldPassword, String newPassword, @PathVariable String username) {
         userService.changePassword(username, oldPassword, newPassword);
     }
 

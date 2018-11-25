@@ -17,7 +17,7 @@ spring:
       testOnReturn: false
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-      filters: stat,wall
+      filters: stat,wall,log4j
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       stat-view-servlet:
         allow: 127.0.0.1
@@ -32,7 +32,7 @@ spring:
   mvc:
     servlet:
       load-on-startup: 1
-  static-path-pattern: /static/**
+#  static-path-pattern: /static/**
   thymeleaf:
     mode: HTML5
     encoding: UTF-8

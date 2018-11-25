@@ -1,5 +1,8 @@
 package com.xiaoshu.backendframework.model;
 
+import com.xiaoshu.backendframework.annotation.OnCreateDate;
+import com.xiaoshu.backendframework.annotation.OnUpdateDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,21 +16,14 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ID id;
 
+    @OnCreateDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
+    @OnCreateDate
+    @OnUpdateDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-
-    @PrePersist
-    public void onCreate() {
-        createTime = updateTime = new Date();
-    }
-
-    @PreUpdate
-    public void onUpdate() {
-        this.updateTime = new Date();
-    }
 
     @Transient
     public String orderBy;

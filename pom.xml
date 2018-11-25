@@ -177,11 +177,11 @@
             <version>1.3.7</version>
         </dependency>
 
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper</artifactId>
-            <version>4.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>tk.mybatis</groupId>-->
+            <!--<artifactId>mapper</artifactId>-->
+            <!--<version>4.0.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>commons-configuration</groupId>

@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
-    <link rel="stylesheet" th:href="@{/static/admin/css/login.css}" media="all" />
+    <link rel="stylesheet" th:href="@{/static/css/login.css}" media="all" />
 </head>
 <body>
 <div class="video_mask"></div>
@@ -18,19 +18,46 @@
     <h1>Admin-管理登录</h1>
     <form class="layui-form" th:action="@{/admin/login}">
         <div class="layui-form-item">
-            <input class="layui-input" name="username" placeholder="用户名" lay-verify="required" type="text" autocomplete="off">
+            <input class="layui-input" name="username" th:value="admin" placeholder="用户名" lay-verify="required" type="text" autocomplete="off">
         </div>
         <div class="layui-form-item">
-            <input class="layui-input" name="password" placeholder="密码" lay-verify="required" type="password" autocomplete="off">
+            <input class="layui-input" name="password" th:value="admin" placeholder="密码" lay-verify="required" type="password" autocomplete="off">
         </div>
         <div class="layui-form-item form_code">
-            <input class="layui-input" name="code" placeholder="验证码" lay-verify="required" type="text" autocomplete="off">
+            <input class="layui-input" name="code"  placeholder="验证码" lay-verify="required" type="text" autocomplete="off">
             <div class="code"><img th:src="@{/getCaptcha}" width="116" height="36" th:id="randImage"></div>
         </div>
         <button class="layui-btn login_btn" lay-submit lay-filter="login">登录</button>
     </form>
 </div>
 <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
-<script type="text/javascript" th:src="@{/static/admin/js/login.js}"></script>
+<script>
+
+    layui.use(['form','layer'],function(){
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : parent.layer;
+        $ = layui.jquery;
+
+        //登录按钮事件
+        form.on("submit(login)", function(data){
+            var loadIndex = layer.load(2, {shade: [0.3, '#333']});
+            $.post(data.form.action, data.field, function(res) {
+                layer.close(loadIndex);
+                if(res.success){
+                    location.href="/"+res.url;
+                }else{
+                    layer.msg(res.message);
+                    $("#randImage").click();
+                }
+            });
+            return false;
+        });
+
+        $("#randImage").click(function () {
+            this.src = "/getCaptcha?t=" + Math.random();
+        });
+    });
+
+</script>
 </body>
 </html>
