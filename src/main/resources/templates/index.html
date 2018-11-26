@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,10 +10,8 @@
 		<title>后台管理系统</title>
 		<link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
 		<link rel="stylesheet" th:href="@{/static/css/global.css}" media="all" />
-		<link rel="stylesheet"th:href="@{/static/css/font-awesome/css/font-awesome.css}" media="all" />
-		
+		<link rel="stylesheet" th:href="@{/static/css/font-awesome/css/font-awesome.css}" media="all" />
 	</head>
-
 	<body>
 		<div class="layui-layout layui-layout-admin" style="border-bottom: solid 5px #1aa094;">
 		    <!-- 标题栏 -->
@@ -30,9 +26,9 @@
 						</div>
 					</div>
 				    <ul class="layui-nav" pc>
-				      	<li class="layui-nav-item">
-							<a href='javascript:;' lay-id="-997" data-url="pages/notice/noticePubList.html"><i class="fa fa-envelope-o" aria-hidden="true" title="公告" unreadNotice></i></a>
-						</li>
+				      	<!--<li class="layui-nav-item">-->
+							<!--<a href='javascript:;' lay-id="-997" data-url="pages/notice/noticePubList.html"><i class="fa fa-envelope-o" aria-hidden="true" title="公告" unreadNotice></i></a>-->
+						<!--</li>-->
 				      <li class="layui-nav-item" pc>
 				        <a href="javascript:;" class="admin-header-user">
 	                        <img />
@@ -40,10 +36,10 @@
 	                    </a>
 	                    <dl class="layui-nav-child">
 	                        <dd>
-	                            <a href='javascript:;' lay-id="-999" data-url="pages/user/updateMyself.html"><i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
+	                            <a href='javascript:;' lay-id="-999" data-url="pages/user/updateMyself"><i class="fa fa-user-circle" aria-hidden="true"></i> 个人信息</a>
 	                        </dd>
 	                        <dd>
-	                            <a href='javascript:;' lay-id="-998" data-url="pages/user/updateHeadImg.html"><i class="fa fa-drupal" aria-hidden="true"></i> 头像</a>
+	                            <a href='javascript:;' lay-id="-998" data-url="pages/user/updateHeadImg"><i class="fa fa-drupal" aria-hidden="true"></i> 头像</a>
 	                        </dd>
 	                        <dd>
 	                            <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 退出</a>
@@ -92,5 +88,4 @@
 			<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
 	</div>
 </body>
-
 </html>

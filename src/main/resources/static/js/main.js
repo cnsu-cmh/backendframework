@@ -99,29 +99,29 @@ function showLoginInfo(){
 	});
 }
 
-function showUnreadNotice(){
-	$.ajax({
-		type : 'get',
-		url : '/notices/countUnread',
-		success : function(data) {
-			$("[unreadNotice]").each(function(){
-				if(data>0){
-					$(this).html("<span class='layui-badge'>"+data+"</span>");
-				}else{
-					$(this).html("");
-				}
-			});
-			
-		}
-	});
-}
+// function showUnreadNotice(){
+// 	$.ajax({
+// 		type : 'get',
+// 		url : '/notices/countUnread',
+// 		success : function(data) {
+// 			$("[unreadNotice]").each(function(){
+// 				if(data>0){
+// 					$(this).html("<span class='layui-badge'>"+data+"</span>");
+// 				}else{
+// 					$(this).html("");
+// 				}
+// 			});
+//
+// 		}
+// 	});
+// }
 
 //初始化菜单
 initMenu();
 // 登陆用户头像昵称
 showLoginInfo();
 //未读公告数量
-showUnreadNotice();
+// showUnreadNotice();
 
 var active;
 

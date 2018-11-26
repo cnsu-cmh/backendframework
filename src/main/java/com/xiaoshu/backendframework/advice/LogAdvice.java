@@ -3,7 +3,7 @@ package com.xiaoshu.backendframework.advice;
 
 import com.xiaoshu.backendframework.annotation.LogAnnotation;
 import com.xiaoshu.backendframework.model.SysLogs;
-import com.xiaoshu.backendframework.service.SysLogService;
+import com.xiaoshu.backendframework.service.SysLogsService;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 public class LogAdvice {
 
     @Autowired
-    private SysLogService logService;
+    private SysLogsService logService;
 
     @Around(value = "@annotation(com.xiaoshu.backendframework.annotation.LogAnnotation)")
     public Object logSave(ProceedingJoinPoint joinPoint) throws Throwable {

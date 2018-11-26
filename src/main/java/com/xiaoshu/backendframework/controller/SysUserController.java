@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,5 +83,18 @@ public class SysUserController {
     @ApiOperation(value = "根据id获取")
     public SysUser get(@PathVariable Long id) {
         return userService.getById(id);
+    }
+
+    @LogAnnotation
+    @PutMapping(params = "headImgUrl")
+    @ApiOperation(value = "修改头像")
+    public void updateHeadImgUrl(String headImgUrl) {
+        SysUser user = UserUtil.getCurrentUser();
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
+        userDto.setHeadImgUrl(headImgUrl);
+
+        userService.updateUser(userDto);
+        log.debug("{}修改了头像", user.getUsername());
     }
 }

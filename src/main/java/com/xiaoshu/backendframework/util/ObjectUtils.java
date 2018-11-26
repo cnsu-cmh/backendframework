@@ -19,6 +19,7 @@ public class ObjectUtils {
         ConvertUtils.register(new DoubleConverter(null), Double.class);
         ConvertUtils.register(new BigDecimalConverter(null), BigDecimal.class);
         ConvertUtils.register(new DateConverter(null), Date.class);
+        ConvertUtils.register(new BooleanConverter(null), Boolean.class);
         ConvertUtils.register(new Converter() {
 
             public String convert(Class clazz, Object value) {

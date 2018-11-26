@@ -3,6 +3,9 @@ package com.xiaoshu.backendframework.controller;
 import java.util.List;
 
 import com.xiaoshu.backendframework.model.Dict;
+import com.xiaoshu.backendframework.page.table.PageTableHandler;
+import com.xiaoshu.backendframework.page.table.PageTableRequest;
+import com.xiaoshu.backendframework.page.table.PageTableResponse;
 import com.xiaoshu.backendframework.service.DictService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,53 @@ public class DictController {
 
 	@Autowired
 	private DictService dictService;
+
+	@RequiresPermissions("dict:add")
+	@PostMapping
+	@ApiOperation(value = "保存")
+	public Dict save(@RequestBody Dict dict) {
+		Dict d = dictService.getByTypeAndK(dict.getType(), dict.getK());
+		if (d != null) {
+			throw new IllegalArgumentException("类型和key已存在");
+		}
+		dictService.save(dict);
+
+		return dict;
+	}
+
+	@GetMapping("/{id}")
+	@ApiOperation(value = "根据id获取")
+	public Dict get(@PathVariable Long id) {
+		return dictService.getById(id);
+	}
+
+	@RequiresPermissions("dict:add")
+	@PutMapping
+	@ApiOperation(value = "修改")
+	public Dict update(@RequestBody Dict dict) {
+		dictService.update(dict);
+
+		return dict;
+	}
+
+	@RequiresPermissions("dict:query")
+	@GetMapping(params = { "start", "length" })
+	@ApiOperation(value = "列表")
+	public PageTableResponse list(PageTableRequest request) {
+		PageTableHandler.CountHandler countHandler = (r) -> dictService.selectConditionCount(r.getParams());
+		PageTableHandler.ListHandler listHandler = (r) -> {
+			return dictService.selectConditionList(r.getParams());
+		};
+
+		return new PageTableHandler(countHandler,listHandler).handle(request);
+	}
+
+	@RequiresPermissions("dict:del")
+	@DeleteMapping("/{id}")
+	@ApiOperation(value = "删除")
+	public void delete(@PathVariable Long id) {
+		dictService.delete(id);
+	}
 
 	@GetMapping(params = "type")
 	public List<Dict> listByType(String type) {

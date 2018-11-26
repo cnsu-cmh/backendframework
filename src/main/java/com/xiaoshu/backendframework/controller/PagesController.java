@@ -58,6 +58,19 @@ public class PagesController {
         return "user/updateUser";
     }
 
+    @RequestMapping("/user/updateMyself")
+    public String updateMyself(){
+        return "user/updateMyself";
+    }
+
+    @RequestMapping("/user/updateHeadImg")
+    public String updateHeadImg(){
+        return "user/updateHeadImg";
+    }
+
+
+
+
    /***------------------------------role----------------*/
    @RequestMapping("/role/roleList")
    public String roleList(){
@@ -68,6 +81,9 @@ public class PagesController {
     public String addRole(){
         return "role/addRole";
     }
+
+
+
 
     /***-----------------------------menu----------------*/
     @RequestMapping("/menu/menuList")
@@ -90,10 +106,65 @@ public class PagesController {
         return "menu/updateMenu";
     }
 
-    /***--------------------------swagger-ui----------------*/
-//    @RequestMapping("/swagger-ui")
-//    public String swagger(){
-//        return "swagger/swagger-ui";
-//    }
+
+
+
+    /***-----------------fileInfo-------------------------*/
+
+    @RequestMapping("/fileInfo/fileInfoList")
+    public String fileInfoList(){
+        return "file/fileList";
+    }
+
+
+
+
+    /***-----------------log-------------------------*/
+    @RequestMapping("/log/logList")
+    public String logList(){
+        return "log/logList";
+    }
+
+
+
+
+    /***-----------------dict-------------------------*/
+    @RequestMapping("/dict/dictList")
+    public String dictList(){
+        return "dict/dictList";
+    }
+
+    @RequestMapping("/dict/addDict")
+    public String addDict(){
+        return "dict/addDict";
+    }
+
+    @RequestMapping("/dict/updateDict")
+    public String updateDict(){
+        return "dict/updateDict";
+    }
+
+
+    /***-----------------excel-------------------------*/
+    @RequestMapping("/excel/sql")
+    public String excelSql(){
+        return "excel/sql";
+    }
+
+    /***-----------------mail-------------------------*/
+    @RequestMapping("/mail/mailList")
+    public String mailList(){
+        return "mail/mailList";
+    }
+
+    @RequestMapping("/mail/addMail")
+    public String addMail(){
+        return "mail/addMail";
+    }
+
+    @RequestMapping("/mail/mailDetail")
+    public String mailDetail(){
+        return "mail/mailDetail";
+    }
 
 }

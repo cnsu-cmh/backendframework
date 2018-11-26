@@ -11,7 +11,7 @@ public abstract class BaseTransientEntity implements Serializable  {
     public String orderBy;
 
     @Transient
-    public  Integer start;
+    public Integer start;
 
     @Transient
     public Integer length;
