@@ -47,17 +47,16 @@ spring:
           paths: /**
   mail:
     default-encoding: UTF-8
-    host: smtp.qq.com
-    username: 292644410@qq.com
-    password: kwqlspwffamybgef
+    host: smtp.163.com
+    username: xxxxxxx@163.com
+    password: xxxxxxxxx
     protocol: smtp
     port: 25
 #    test-connection: false
 #    properties:
 #      mail.smtp.auth: true
 
-
-
+# password为客户端授权密码
 
 
 mybatis:
