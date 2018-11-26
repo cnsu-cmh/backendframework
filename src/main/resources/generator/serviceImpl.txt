@@ -60,7 +60,7 @@ public class {serviceImplName} implements {serviceName} {
 
     @Override
     public void delete(Long id) {
-        fileInfoMapper.deleteByPrimaryKey(id);
+        {mapperParamName}.deleteByPrimaryKey(id);
         log.debug("删除{beanName}", id);
     }
 
