@@ -2,8 +2,6 @@ package com.xiaoshu.backendframework.controller;
 
 import com.xiaoshu.backendframework.annotation.LogAnnotation;
 import com.xiaoshu.backendframework.util.ExcelUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -21,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "excel下载")
 @RestController
 @RequestMapping("/excels")
 public class ExcelController {
@@ -31,7 +28,7 @@ public class ExcelController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @ApiOperation("校验sql，并返回sql返回的数量")
+    @LogAnnotation(module = "校验sql，并返回sql返回的数量")
     @PostMapping("/sql-count")
     public Integer checkSql(String sql) {
         log.info(sql);
@@ -58,8 +55,7 @@ public class ExcelController {
         return sql;
     }
 
-    @LogAnnotation
-    @ApiOperation("根据sql导出excel")
+    @LogAnnotation(module = "根据sql导出excel")
     @PostMapping
     @RequiresPermissions("excel:down")
     public void downloadExcel(String sql, String fileName, HttpServletResponse response) {
@@ -91,8 +87,7 @@ public class ExcelController {
         }
     }
 
-    @LogAnnotation
-    @ApiOperation("根据sql在页面显示结果")
+    @LogAnnotation(module = "根据sql在页面显示结果")
     @PostMapping("/show-datas")
     @RequiresPermissions("excel:show:datas")
     public List<Object[]> showData(String sql) {

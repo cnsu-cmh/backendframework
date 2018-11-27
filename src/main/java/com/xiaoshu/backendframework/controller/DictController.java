@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/dicts")
@@ -29,7 +28,6 @@ public class DictController {
 
 	@RequiresPermissions("dict:add")
 	@PostMapping
-	@ApiOperation(value = "保存")
 	public Dict save(@RequestBody Dict dict) {
 		Dict d = dictService.getByTypeAndK(dict.getType(), dict.getK());
 		if (d != null) {
@@ -41,14 +39,12 @@ public class DictController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation(value = "根据id获取")
 	public Dict get(@PathVariable Long id) {
 		return dictService.getById(id);
 	}
 
 	@RequiresPermissions("dict:add")
 	@PutMapping
-	@ApiOperation(value = "修改")
 	public Dict update(@RequestBody Dict dict) {
 		dictService.update(dict);
 
@@ -57,7 +53,6 @@ public class DictController {
 
 	@RequiresPermissions("dict:query")
 	@GetMapping(params = { "start", "length" })
-	@ApiOperation(value = "列表")
 	public PageTableResponse list(PageTableRequest request) {
 		PageTableHandler.CountHandler countHandler = (r) -> dictService.selectConditionCount(r.getParams());
 		PageTableHandler.ListHandler listHandler = (r) -> {
@@ -69,7 +64,6 @@ public class DictController {
 
 	@RequiresPermissions("dict:del")
 	@DeleteMapping("/{id}")
-	@ApiOperation(value = "删除")
 	public void delete(@PathVariable Long id) {
 		dictService.delete(id);
 	}

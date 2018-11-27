@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
-@Api(tags = "邮件")
 @RestController
 @RequestMapping("/mails")
 public class MailController {
@@ -33,9 +29,8 @@ public class MailController {
 	@Autowired
 	private MailService mailService;
 
-	@LogAnnotation
+	@LogAnnotation(module = "保存并且发送邮件")
 	@PostMapping
-	@ApiOperation(value = "保存邮件")
 	@RequiresPermissions("mail:send")
 	public Mail save(@RequestBody Mail mail) {
 		String toUsers = mail.getToUsers().trim();
@@ -54,22 +49,34 @@ public class MailController {
 		return mail;
 	}
 
+	/**
+	 * 根据id获取邮件
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
-	@ApiOperation(value = "根据id获取邮件")
 	@RequiresPermissions("mail:all:query")
 	public Mail get(@PathVariable Long id) {
 		return mailService.getById(id);
 	}
 
+	/**
+	 * 根据id获取邮件发送详情
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}/to")
-	@ApiOperation(value = "根据id获取邮件发送详情")
 	@RequiresPermissions("mail:all:query")
 	public List<MailTo> getMailTo(@PathVariable Long id) {
 		return mailService.getToUsers(id);
 	}
 
+	/**
+	 * 邮件列表
+	 * @param request
+	 * @return
+	 */
 	@GetMapping
-	@ApiOperation(value = "邮件列表")
 	@RequiresPermissions("mail:all:query")
 	public PageTableResponse list(PageTableRequest request) {
 

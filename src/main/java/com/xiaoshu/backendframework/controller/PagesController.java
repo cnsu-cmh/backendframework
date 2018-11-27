@@ -2,14 +2,11 @@ package com.xiaoshu.backendframework.controller;
 
 import com.xiaoshu.backendframework.constants.UserConstants;
 import com.xiaoshu.backendframework.model.SysUser;
-import com.xiaoshu.backendframework.util.ConfigUtil;
 import com.xiaoshu.backendframework.util.UserUtil;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/pages")

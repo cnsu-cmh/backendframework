@@ -8,8 +8,6 @@ import com.xiaoshu.backendframework.model.SysPermission;
 import com.xiaoshu.backendframework.model.SysUser;
 import com.xiaoshu.backendframework.service.SysPermissionService;
 import com.xiaoshu.backendframework.util.UserUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.Logical;
@@ -24,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Api(tags = "权限")
 @RestController
 @RequestMapping("/permissions")
 public class SysPermissionController {
@@ -35,7 +32,7 @@ public class SysPermissionController {
     private SysPermissionService permissionService;
 
 
-    @ApiOperation(value = "当前登录用户拥有的权限")
+    @LogAnnotation(module = "当前登录用户拥有的权限")
     @GetMapping("/current")
     public List<SysPermission> permissionsCurrent() {
         List<SysPermission> list = UserUtil.getCurrentPermissions();
@@ -72,7 +69,7 @@ public class SysPermissionController {
      * @return
      */
     @GetMapping("/owns")
-    @ApiOperation(value = "校验当前用户的权限")
+    @LogAnnotation(module = "校验当前用户的权限")
     public Set<String> ownsPermission() {
         List<SysPermission> permissions = UserUtil.getCurrentPermissions();
         if (CollectionUtils.isEmpty(permissions)) {
@@ -84,7 +81,6 @@ public class SysPermissionController {
     }
 
     @GetMapping
-    @ApiOperation(value = "菜单列表")
     @RequiresPermissions("sys:menu:query")
     public List<SysPermission> permissionsList() {
         List<SysPermission> permissionsAll = permissionService.selecttAll();
@@ -108,7 +104,6 @@ public class SysPermissionController {
 
 
     @GetMapping("/all")
-    @ApiOperation(value = "所有菜单")
     @RequiresPermissions("sys:menu:query")
     public JSONArray permissionsAll() {
         List<SysPermission> permissionsAll = permissionService.selecttAll();
@@ -119,7 +114,6 @@ public class SysPermissionController {
     }
 
     @GetMapping("/parents")
-    @ApiOperation(value = "一级菜单")
     @RequiresPermissions("sys:menu:query")
     public List<SysPermission> parentMenu() {
         List<SysPermission> parents = permissionService.selectParents();
@@ -151,38 +145,34 @@ public class SysPermissionController {
     }
 
     @GetMapping(params = "roleId")
-    @ApiOperation(value = "根据角色id删除权限")
+    @LogAnnotation(module = "根据角色id删除权限")
     @RequiresPermissions(value = { "sys:menu:query", "sys:role:query" }, logical = Logical.OR)
     public List<SysPermission> listByRoleId(Long roleId) {
         return permissionService.selectByRoleId(roleId);
     }
 
-    @LogAnnotation
     @PostMapping
-    @ApiOperation(value = "保存菜单")
+    @LogAnnotation(module = "保存菜单")
     @RequiresPermissions("sys:menu:add")
     public void save(@RequestBody SysPermission permission) {
         permissionService.save(permission);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "根据菜单id获取菜单")
     @RequiresPermissions("sys:menu:query")
     public SysPermission get(@PathVariable Long id) {
         return permissionService.getById(id);
     }
 
-    @LogAnnotation
     @PutMapping
-    @ApiOperation(value = "修改菜单")
+    @LogAnnotation(module = "修改菜单")
     @RequiresPermissions("sys:menu:add")
     public void update(@RequestBody SysPermission permission) {
         permissionService.update(permission);
     }
 
-    @LogAnnotation
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "删除菜单")
+    @LogAnnotation(module = "删除菜单")
     @RequiresPermissions(value = { "sys:menu:del" })
     public void delete(@PathVariable Long id) {
         permissionService.delete(id);

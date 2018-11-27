@@ -35,7 +35,8 @@ public class SwaggerConfig {
 						.title("swagger接口文档")
 						.contact(new Contact("cnsu-cmh", "", "cmh19940105@163.com")).version("1.0").build())
 				.globalOperationParameters(Lists.newArrayList(builder.build()))
-				.select().paths(PathSelectors.any()).build();
+				.select().apis(RequestHandlerSelectors.basePackage("com.xiaoshu.backendframework.controller.api"))
+				.paths(PathSelectors.any()).build();
 	}
 
 //	@Bean

@@ -1,7 +1,6 @@
 package com.xiaoshu.backendframework.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.xiaoshu.backendframework.annotation.LogAnnotation;
 import com.xiaoshu.backendframework.dto.LayuiFile;
@@ -20,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
-@Api(tags = "文件")
 @RestController
 @RequestMapping("/files")
 public class FileController {
@@ -31,9 +26,8 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
-	@LogAnnotation
+	@LogAnnotation(module = "文件上传")
 	@PostMapping
-	@ApiOperation(value = "文件上传")
 	public FileInfo uploadFile(MultipartFile file) throws IOException {
 		return fileService.save(file);
 	}
@@ -46,9 +40,8 @@ public class FileController {
 	 * @return
 	 * @throws IOException
 	 */
-	@LogAnnotation
+	@LogAnnotation(module = "layui富文本文件自定义上传")
 	@PostMapping("/layui")
-	@ApiOperation(value = "layui富文本文件自定义上传")
 	public LayuiFile uploadLayuiFile(MultipartFile file, String domain) throws IOException {
 		FileInfo fileInfo = fileService.save(file);
 
@@ -63,7 +56,6 @@ public class FileController {
 	}
 
 	@GetMapping
-	@ApiOperation(value = "文件查询")
 	@RequiresPermissions("sys:file:query")
 	public PageTableResponse listFiles(PageTableRequest request) {
 
@@ -76,9 +68,8 @@ public class FileController {
 
 	}
 
-	@LogAnnotation
+	@LogAnnotation(module = "文件删除")
 	@DeleteMapping("/{id}")
-	@ApiOperation(value = "文件删除")
 	@RequiresPermissions("sys:file:del")
 	public void delete(@PathVariable Long id) {
 		fileService.delete(id);
